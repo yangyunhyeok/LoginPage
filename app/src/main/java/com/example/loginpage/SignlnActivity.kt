@@ -19,30 +19,18 @@ import kotlin.random.Random
 
 class SignlnActivity : AppCompatActivity() {
     @SuppressLint("SuspiciousIndentation")
-    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
 
-    private fun setResultNext(){
-        val id = findViewById<EditText>(R.id.id)
-        val password = findViewById<EditText>(R.id.password)
-        resultLauncher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()){ result ->
-            // 서브 액티비티로부터 돌아올 때의 결과 값을 받아 올 수 있는 구문
-            if (result.resultCode == RESULT_OK){
-
-                val getid = result.data?.getStringExtra("signUpId") ?: ""
-                val getpassword = result.data?.getStringExtra("signUpPassword") ?: ""
-
-                id.setText(getid)
-                password.setText(getpassword)
-            }
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        lateinit var loginLauncher: ActivityResultLauncher<Intent>
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
         val id = findViewById<EditText>(R.id.id)
         val password = findViewById<EditText>(R.id.password)
+        val idData:String
+        val passwordData:String
+
+
 
 
         val login = findViewById<Button>(R.id.login)
@@ -64,7 +52,20 @@ class SignlnActivity : AppCompatActivity() {
             startActivity(signupIntent)
         }
 
+        loginLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                result ->
+            if(result.resultCode == RESULT_OK) {
+                val data = result.data
+                var idData = data?.getStringExtra("signUpId") ?: ""
+                var passwordData = data?.getStringExtra("signUpPassword") ?: ""
+                val id = findViewById<EditText>(R.id.id)
+                val password = findViewById<EditText>(R.id.password)
+                id.setText(idData)
+                password.setText(passwordData)
+            }
+        }
     }
+
 
 
 
