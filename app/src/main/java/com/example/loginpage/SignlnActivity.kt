@@ -17,6 +17,9 @@ import kotlin.math.sign
 import kotlin.random.Random
 
 
+    var idData:String?=null
+    var passwordData:String?=null
+
 class SignlnActivity : AppCompatActivity() {
     @SuppressLint("SuspiciousIndentation")
 
@@ -27,9 +30,6 @@ class SignlnActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sign_in)
         val id = findViewById<EditText>(R.id.id)
         val password = findViewById<EditText>(R.id.password)
-        val idData:String
-        val passwordData:String
-
 
 
 
@@ -49,26 +49,21 @@ class SignlnActivity : AppCompatActivity() {
         val signUp = findViewById<Button>(R.id.signup)
         signUp.setOnClickListener {
             var signupIntent = Intent(this, SignUpActivity::class.java)
-            startActivity(signupIntent)
+            loginLauncher.launch(signupIntent)
         }
 
         loginLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
                 result ->
             if(result.resultCode == RESULT_OK) {
                 val data = result.data
-                var idData = data?.getStringExtra("signUpId") ?: ""
-                var passwordData = data?.getStringExtra("signUpPassword") ?: ""
-                val id = findViewById<EditText>(R.id.id)
-                val password = findViewById<EditText>(R.id.password)
+                idData = data?.getStringExtra("signUpId") ?: ""
+                passwordData = data?.getStringExtra("signUpPassword") ?: ""
+
                 id.setText(idData)
                 password.setText(passwordData)
             }
         }
     }
-
-
-
-
 }
 
 
