@@ -15,6 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/myshiba"
+        android:background="@drawable/imageview"
         />
 
     <TextView
@@ -60,9 +61,10 @@
     <Button
         android:id="@+id/finish"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginTop="100dp"
         android:text="종료"
+        android:background="@drawable/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/home_mbti" />
